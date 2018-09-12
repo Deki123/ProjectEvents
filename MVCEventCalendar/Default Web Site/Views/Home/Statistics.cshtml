@@ -1,0 +1,32 @@
+﻿@model MVCEventCalendar.Event
+
+@{
+    ViewBag.Title = "Izvjestaj";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.BeginForm("Statistics", "Home")
+<div class="form-horizontal">
+    <br />
+    <br />
+    <h2>Izvjestaj</h2>
+    <div class="form-group">
+
+        <div class="col-md">
+            <div>
+                @Html.ActionLink("Ukupna zarada po danu", "StatisticsDatePerDayTotal", "Home")
+                </div>
+            <div>
+                @Html.ActionLink("Ukupna zarada radnika po danu", "StatisticsDatePerDayWorker","Home")
+                 </div>
+            <div>
+                @Html.ActionLink("Ukupna zarada po mjesecu", "StatisticsDatePerMonthTotal", "Home")
+                </div>
+            <div>
+                @Html.ActionLink("Ukupna zarada radnika po mjesecu", "StatisticsDatePerMonthWorker")
+
+            </div>
+
+           
+        </div>
+        </div>
+    </div>

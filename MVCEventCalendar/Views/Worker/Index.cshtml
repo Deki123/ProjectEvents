@@ -1,0 +1,747 @@
+﻿@{
+    ViewBag.Title = "";
+
+    if (Session["userID"] == null)
+    {
+        Response.Redirect("~/Login/Index");
+    }
+}
+
+<h2>Index</h2>
+<div id="calender"></div>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><span id="eventTitle"></span></h4>
+            </div>
+            <div class="modal-body">
+                <button id="btnDelete" class="btn btn-default btn-sm pull-right">
+                    <span class="glyphicon glyphicon-remove"></span> Izbrisi
+                </button>
+                <button id="btnEdit" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
+                    <span class="glyphicon glyphicon-pencil"></span> Izmjeni
+                </button>
+                <p id="pDetails"></p>
+                <p id="pworker"></p>
+                <p id="pprice"></p>
+                <p id="pclient"></p>
+                <p id="pnumber"></p>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModalSave" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Sacuvaj termin</h4>
+            </div>
+            <div class="modal-body">
+                <form class="col-md-12 form-horizontal">
+                    <input type="hidden" id="hdEventID" value="0" />
+                    <div class="form-group">
+                        <label>Naziv Tretmana</label>
+                        <select id="txtSubject" class="form-control  " click="filterFunction()">
+                            <option value="Permanent šminka kapka">Permanent šminka kapka</option>
+                            <option value="Permanent šminka usana
+">
+                                Permanent šminka usana
+                            </option>
+                            <option value="Permanent šminka obrva
+">
+                                Permanent šminka obrva
+                            </option>
+                            <option value="Japansko iscrtavanje obrva
+">
+                                Japansko iscrtavanje obrva
+                            </option>
+                            <option value="Prva korekcija permanenta
+">
+                                Prva korekcija permanenta
+                            </option>
+                            <option value="Prva korekcija japanskog iscrtavanja
+">
+                                Prva korekcija japanskog iscrtavanja
+                            </option>
+                            <option value="Osvježenje boje permamenta
+">
+                                Osvježenje boje permamenta
+                            </option>
+                            <option value="Osvježenje boje japanskog iscrtavanja
+">
+                                Osvježenje boje japanskog iscrtavanja
+                            </option>
+                            <option value="Nadogradnja svilenih trepavica
+">
+                                Nadogradnja svilenih trepavica
+                            </option>
+                            <option value="Dopuna svilenih trepavica
+">
+                                Dopuna svilenih trepavica
+                            </option>
+                            <option value="Uklanjanje trepavica
+">
+                                Uklanjanje trepavica
+                            </option>
+                            <option value="Nadogradnja trepavica u pramenu
+">
+                                Nadogradnja trepavica u pramenu
+                            </option>
+                            <option value="Nadogradnja trepavica iz jednog dijela
+">
+                                Nadogradnja trepavica iz jednog dijela
+                            </option>
+                            <option value="Šminkanje sa trepavicama
+">
+                                Šminkanje sa trepavicama
+                            </option>
+                            <option value="Šminkanje bez trepavica
+">
+                                Šminkanje bez trepavica
+                            </option>
+                            <option value="Medicinski pedikir
+">
+                                Medicinski pedikir
+                            </option>
+                            <option value="Estetski pedikir sa lakom
+">
+                                Estetski pedikir sa lakom
+                            </option>
+                            <option value="Estetski pedikir sa gel lakom
+">
+                                Estetski pedikir sa gel lakom
+                            </option>
+                            <option value="Estetski pedikir sa gelom
+">
+                                Estetski pedikir sa gelom
+                            </option>
+                            <option value="Estetski pedikir sa uv lakom
+">
+                                Estetski pedikir sa uv lakom
+                            </option>
+                            <option value="Depilacija celih nogu
+">
+                                Depilacija celih nogu
+                            </option>
+                            <option value="Depilacija pola nogu
+">
+                                Depilacija pola nogu
+                            </option>
+                            <option value="Depilacija prepona
+">
+                                Depilacija prepona
+                            </option>
+                            <option value="Depilacija pazuha
+">
+                                Depilacija pazuha
+                            </option>
+                            <option value="Depilacija ruku
+">
+                                Depilacija ruku
+                            </option>
+                            <option value="Depilacija leđa
+">
+                                Depilacija leđa
+                            </option>
+                            <option value="Depilacija stomaka
+">
+                                Depilacija stomaka
+                            </option>
+                            <option value="Depilacija grudi
+">
+                                Depilacija grudi
+                            </option>
+                            <option value="Brazilska depilacija
+">
+                                Brazilska depilacija
+                            </option>
+                            <option value="Depilacija lica
+">
+                                Depilacija lica
+                            </option>
+                            <option value="Depilacija nausnica
+">
+                                Depilacija nausnica
+                            </option>
+                            <option value="Oblikovanje obrva
+">
+                                Oblikovanje obrva
+                            </option>
+                            <option value="Farbanje obrva
+">
+                                Farbanje obrva
+                            </option>
+                            <option value="Fabanje trepavica
+">
+                                Farbanje trepavica
+                            </option>
+                            <option value="Lash lift trepavica
+">
+                                Lash lift trepavica
+                            </option>
+                            <option value="Biostimulativni tretman lica
+">
+                                Biostimulativni tretman lica
+                            </option>
+                            <option value="Mezoterapija lica
+">
+                                Mezoterapija lica
+                            </option>
+                            <option value="Mikrodermoabrazija lica
+">
+                                Mikrodermoabrazija lica
+                            </option>
+                            <option value="Hemijski piling lica
+">
+                                Hemijski piling lica
+                            </option>
+                            <option value="Masaza lica
+">
+                                Masaza lica
+                            </option>
+                            <option value="Parafinski tretman lica
+">
+                                Parafinski tretman lica
+                            </option>
+                            <option value="Green peel activ clearing
+">
+                                Green peel activ clearing
+                            </option>
+                            <option value="Green peel mela white
+">
+                                Green peel mela white
+                            </option>
+                            <option value="Green peel fresh up
+">
+                                Green peel fresh up
+                            </option>
+                            <option value="Green peel  energy
+">
+                                Green peel  energy
+                            </option>
+                            <option value="Green peel clasic
+">
+                                Green peel clasic
+                            </option>
+                            <option value="Nadogradnja noktiju
+">
+                                Nadogradnja noktiju
+                            </option>
+                            <option value="Gel manikir
+">
+                                Gel manikir
+                            </option>
+                            <option value="Korekcija gela
+">
+                                Korekcija gela
+                            </option>
+                            <option value="Polu-korekcija gela
+">
+                                Polu-korekcija gela
+                            </option>
+                            <option value="Gel lak
+">
+                                Gel lak
+                            </option>
+                            <option value="Uv lak">Uv lak</option>
+                            <option value="Manikir">Manikir</option>
+                            <option value="Maderoterapija">Maderoterapija</option>
+                            <option value="Anticelulit masaža
+">
+                                Anticelulit masaža
+                            </option>
+                            <option value="Vacuslim 48 tretman
+">
+                                Vacuslim 48 tretman
+                            </option>
+                            <option value="Relax masaža cijelog tijela
+">
+                                Relax masaža cijelog tijela
+                            </option>
+                            <option value="Parcijalna masaža
+">
+                                Parcijalna masaža
+                            </option>
+                            <option value="Anticelulit tretman
+">
+                                Anticelulit tretman
+                            </option>
+                            <option value="Limfna drenaža
+">
+                                Limfna drenaža
+                            </option>
+                            <option value="Antistres tretman tijela
+">
+                                Antistres tretman tijela
+                            </option>
+                            <option value="Refleksologija stopala
+">
+                                Refleksologija stopala
+                            </option>
+                            <option value="Masaža lica
+">
+                                Masaža lica
+                            </option>
+                        </select>
+                        @*<input type="text" id="txtSubject" class="form-control" />*@
+                    </div>
+
+                    <div class="form-group">
+                        <label>Radnik</label>
+
+                       <select class="form-control" id="txtworker">
+                            <option value=""></option>
+                            <option value="Stankic Jelena">Stankić Jelena</option>
+                          <option value="Stojanovic Borka">Stojanović Borka</option>
+                            <option value="Krajisnik Sladjana">Krajišnik Slađana</option>
+                            <option value="Djuric Jelena">Đurić Jelena</option>
+                            <option value="Dkokic Draginja">Đokić Draginja</option>
+                            <option value="Milkanovic Dragana">Milkanović Dragana</option>
+
+
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Izaberite Sobu </label>
+                        <select id="ddThemeColor" class="form-control">
+                            <option value="">Default</option>
+                            <option value="red">Soba A</option>
+                            <option value="blue">Soba B</option>
+                            <option value="black">Soba C</option>
+                            <option value="green">Soba D</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Pocetak</label>
+                        <div class="input-group date" id="dtp1">
+                            <input type="text" id="txtStart" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="chkIsFullDay" checked="checked" />  Is Full Day event</label>
+                            </div>
+                        </div>*@
+                    <div class="form-group" id="divEndDate">
+                        <label>Kraj</label>
+                        <div class="input-group date" id="dtp2">
+                            <input type="text" id="txtEnd" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Cijena</label>
+                        <input type="text" class="form-control" id="txtprice" />
+                    </div>
+                    <input type="text" id="hdclientID" style="display:none" />
+                    <div class="form-group">
+                        <label>Klijent</label>
+
+                        <input id="txtclient" class="form-control" />
+
+                   </div>
+
+
+                    <div class="form-group">
+                        <label>Broj telefona</label>
+                        <input type="text" id="txtnumber" class="form-control" value="+387" />
+
+                    </div>
+                    <div class="form-group">
+                        <p>
+                            @Html.ActionLink("+Dodaj Klijenta", "Create", "Home")
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <label>Opis</label>
+                        <textarea id="txtDescription" rows="3" class="form-control"></textarea>
+                    </div>
+                    @*<div class="form-group">
+                            <label>Theme Color</label>
+                            <select id="ddThemeColor" class="form-control">
+                                <option value="">Default</option>
+                                <option value="red">Red</option>
+                                <option value="blue">Blue</option>
+                                <option value="black">Black</option>
+                                <option value="green">Green</option>
+                            </select>
+                        </div>*@
+                    <button type="button" id="btnSave" class="btn btn-success">Sacuvaj </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="myClientSave" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Sacuvaj termin</h4>
+            </div>
+            <div class="modal-body">
+                <form class="col-md-12 form-horizontal">
+                    <input type="hidden" id="hdEventID" value="0" />
+                    <div class="form-group">
+                        <label>Naziv Tretmana</label>
+                    </div>
+                    <button type="button" id="btnSave" class="btn btn-success">Sacuvaj </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    #stat {
+        display:none;
+    }
+</style>
+
+
+@*<link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />*@
+<link href="~/Content/fullcalendar.min.css" rel="stylesheet" />
+<link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+@section Scripts{
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>*@
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="~/Scripts/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+
+
+
+
+        $(document).ready(function () {
+         //$("#txtclient").autocomplete({
+         //    source: function (request, response) {
+         //        $.ajax({
+         //            url: "/home/GetSearchValue",
+         //            dataType: "json",
+         //            data: "{ 'search' :'" + request.term + "'}",
+         //            type: "POST",
+         //            contentType: "aplication/json: charset=utf-8",
+
+
+         //            success: function (data) {
+         //                response($.map(data, function (item) {
+         //                    return item;
+
+         //                }))
+         //            },
+
+
+         //        });
+         //    }
+
+         //  });
+
+
+
+
+
+
+            var events = [];
+            var selectedEvent = null;
+            FetchEventAndRenderCalendar();
+            function FetchEventAndRenderCalendar() {
+
+                events = [];
+                $.ajax({
+                    type: "GET",
+                    url: "/home/GetEvents",
+
+                    success: function (data) {
+
+                        $.each(data, function (i, v, cl) {
+                            events.push({
+                                eventID: v.EventID,
+                                title: v.Subject,
+                                description: v.Description,
+                                start: moment(v.Start),
+                                end: v.End != null ? moment(v.End) : null,
+                                color: v.ThemeColor,
+                                allDay: v.IsFullDay,
+                                price: v.Price,
+                                worker: v.Worker,
+                                nameclient: v.NameClient,
+                                numberclient: v.NumberClient
+
+
+
+                            });
+                        })
+
+                        GenerateCalender(events);
+
+                    },
+
+                })
+
+
+            }
+
+            function GenerateCalender(events) {
+                $('#calender').fullCalendar('destroy');
+                $('#calender').fullCalendar({
+
+                    contentHeight: 400,
+                    defaultDate: new Date(),
+                    timeFormat: 'h(:mm)a',
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay,agenda'
+                    },
+                    buttonText: {
+                        prev: 'Predhodna',
+                        next: 'Sledeca',
+                        prevYear: 'PredGod',
+                        nextYear: 'SledGod',
+                        today: 'Danas',
+                        month: 'Mjesec',
+                        week: 'Sedmica',
+                        day: 'Dan'
+                    },
+                    eventRender: function (calEvent, eventElement, event) {
+
+
+                        eventElement.append('&nbsp;' + '<span >' + calEvent.worker + '</span>');
+
+                    },
+                    eventLimit: true,
+                    eventColor: '#378006',
+                    events: events,
+                    eventClick: function (calEvent, jsEvent, view) {
+                        selectedEvent = calEvent;
+                        $('#myModal #eventTitle').text(calEvent.title);
+                        var $description = $('<div/>');
+                        $description.append($('<p/>').html('<b>Pocetak: </b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
+                        if (calEvent.end != null) {
+                            $description.append($('<p/>').html('<b>Kraj: </b>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
+                        }
+                        $description.append($('<p/>').html('<b>Opis: </b>' + calEvent.description));
+                        $('#myModal #pDetails').empty().html($description);
+                        $description.append($('<p/>').html('<b>Radnik: </b>' + calEvent.worker));
+                        $('#myModal #pworker').empty().html($description);
+                        $description.append($('<p/>').html('<b>Cijena: </b>' + calEvent.price + '<i> KM</i>'));
+                        $('#myModal #pprice').empty().html($description);
+                        $description.append($('<p/>').html('<b>Klijent: </b>' + calEvent.nameclient));
+                        $('#myModal #pclient').empty().html($description);
+                        $description.append($('<p/>').html('<b>Broj: </b>' + '0' + calEvent.numberclient));
+                        $('#myModal #pnumber').empty().html($description);
+
+                        $('#myModal').modal();
+                    },
+                    selectable: true,
+                    select: function (start, end) {
+                        selectedEvent = {
+                            eventID: 0,
+                            title: '',
+                            description: '',
+                            start: start,
+                            end: end,
+                            allDay: false,
+                            color: '',
+                            price: '',
+                            worker: '',
+                            client: '',
+                            numbers:'',
+                            nameclient: '',
+                            numberclient: ''
+                        };
+
+                        openAddEditForm();
+                        $('#calendar').fullCalendar('unselect');
+                    },
+                    editable: true,
+                    eventDrop: function (event, client) {
+                        var data = {
+                            EventID: event.eventID,
+                            Subject: event.title,
+                            Start: event.start.format('DD/MM/YYYY HH:mm A'),
+                            End: event.end != null ? event.end.format('DD/MM/YYYY HH:mm A') : null,
+                            Description: event.description,
+                            ThemeColor: event.color,
+                            IsFullDay: event.allDay,
+                            Price: event.price,
+                            Worker: event.price,
+                            ClientsID: event.clientID,
+                            FirstLastName: event.client,
+                            number: event.numbers,
+                            NameClient: event.nameclient,
+                            NumberClient: event.numberclient
+                        };
+                        SaveEvent(data);
+                    }
+                })
+            }
+
+
+            $('#btnEdit').click(function () {
+                //Open modal dialog for edit event
+                openAddEditForm();
+            })
+            $('#btnDelete').click(function () {
+                if (selectedEvent != null && confirm('Da li ste sigurni?')) {
+                    $.ajax({
+                        type: "POST",
+                        url: '/home/DeleteEvent',
+                        data: { 'eventID': selectedEvent.eventID },
+                        success: function (data) {
+                            if (data.status) {
+                                //Refresh the calender
+                                FetchEventAndRenderCalendar();
+                                $('#myModal').modal('hide');
+                            }
+                        },
+                        error: function () {
+                            alert('Failed');
+                        }
+                    })
+                }
+            })
+
+            $('#dtp1,#dtp2').datetimepicker({
+                format: 'DD/MM/YYYY HH:mm A'
+            });
+
+            $('#chkIsFullDay').change(function () {
+                if ($(this).is(':checked')) {
+                    $('#divEndDate').hide();
+                }
+                else {
+                    $('#divEndDate').show();
+                }
+            });
+
+
+            function openAddEditForm() {
+                if (selectedEvent != null) {
+                    $('#hdEventID').val(selectedEvent.eventID);
+                    $('#txtSubject').val(selectedEvent.title);
+                    $('#txtStart').val(selectedEvent.start.format('DD/MM/YYYY HH:mm A'));
+                    $('#chkIsFullDay').prop("checked", selectedEvent.allDay || false);
+                    $('#chkIsFullDay').change();
+                    $('#txtEnd').val(selectedEvent.end != null ? selectedEvent.end.format('DD/MM/YYYY HH:mm A') : '');
+                    $('#txtDescription').val(selectedEvent.description);
+                    $('#ddThemeColor').val(selectedEvent.color);
+                    $('#txtprice').val(selectedEvent.price);
+                    $('#txtworker').val(selectedEvent.worker);
+                    $("#hdclientID").val(selectedEvent.clientID);
+                    $('#txtclient').val(selectedEvent.client);
+                    $('#txtnumber').val(selectedEvent.numbers);
+                    $('#txtclient').val(selectedEvent.nameclient);
+                    $('#txtnumber').val(selectedEvent.numberclient);
+
+                }
+                $('#myModal').modal('hide');
+                $('#myModalSave').modal();
+            }
+
+            function update() {
+                console.log('click');
+
+            }
+
+            $('#btnSave').click(function () {
+                //Validation/
+                if ($('#txtSubject').val().trim() == "") {
+                    alert('Subject required');
+                    return;
+                }
+                if ($('#txtStart').val().trim() == "") {
+                    alert('Start date required');
+                    return;
+                }
+                if ($('#txtStart').val().trim() == "DD/MM/YYYY 00:00") {
+                    alert('error');
+                    return;
+                }
+                if ($('#chkIsFullDay').is(':checked') == false && $('#txtEnd').val().trim() == "") {
+                    alert('End date required');
+                    return;
+                }
+                else {
+                    var startDate = moment($('#txtStart').val(), "DD/MM/YYYY HH:mm A").toDate();
+                    var endDate = moment($('#txtEnd').val(), "DD/MM/YYYY HH:mm A").toDate();
+                    if (startDate > endDate) {
+                        alert('Invalid end date');
+                        return;
+                    }
+                }
+
+                var data = {
+                    EventID: $('#hdEventID').val(),
+                    Subject: $('#txtSubject').val().trim(),
+                    Start: $('#txtStart').val().trim(),
+                    End: $('#chkIsFullDay').is(':checked') ? null : $('#txtEnd').val().trim(),
+                    Description: $('#txtDescription').val(),
+                    ThemeColor: $('#ddThemeColor').val(),
+                    IsFullDay: $('#chkIsFullDay').is(':checked'),
+                    Price: $('#txtprice').val().trim(),
+                    Worker: $('#txtworker').val().trim(),
+                    ClientsID: $('#hdclientID').val().trim(),
+                    FirstLastName: $('#txtclient').val().trim(),
+                    number: $('#txtnumber').val().trim(),
+                    NameClient: $('#txtclient').val().trim(),
+                    NumberClient: $('#txtnumber').val().trim()
+                }
+                SaveEvent(data);
+                // call function for submit data to the server
+            })
+
+
+            function SaveEvent(data) {
+                $.ajax({
+                    type: "POST",
+                    url: '/home/SaveEvent',
+                    data: data,
+                    success: function (data) {
+                        if (data.status) {
+                            //Refresh the calender
+                            FetchEventAndRenderCalendar();
+                            console.log('clickd');
+                            
+                            
+
+                            $('#myModalSave').modal('hide');
+                        }
+                    },
+                    error: function () {
+                        alert('Failed');
+                    }
+                })
+            }
+
+
+        })
+
+
+    </script>
+}

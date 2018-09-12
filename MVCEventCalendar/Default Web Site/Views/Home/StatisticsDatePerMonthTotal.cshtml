@@ -1,0 +1,32 @@
+﻿@model MVCEventCalendar.Event
+
+@{
+    ViewBag.Title = "Ukupna zarada po mjesecu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+}
+@Html.BeginForm("StatisticsDatePerMonthTotal", "Home")
+<br /><br />
+<div class="form-horizontal">
+
+    <h2>Ukupna zarada po mjesecu</h2>
+    <div class="form-group">
+
+
+        <div class="col-md">
+            @Html.Label("Od:")
+
+
+            @Html.TextBox("start", null, new { @type = "date", @class = "form-contol datepicker" })
+            @Html.Label("do:")
+
+            @Html.TextBox("end", null, new { @type = "date", @class = "form-contol datepicker" })
+            <br />
+           
+
+            <p><button type="submit">Izracunaj</button></p>
+            <div>Zaradjeno= @Model.Price KM</div>
+        </div>
+    </div>
+</div>

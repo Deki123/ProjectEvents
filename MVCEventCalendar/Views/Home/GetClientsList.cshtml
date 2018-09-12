@@ -1,0 +1,48 @@
+﻿@model IEnumerable<MVCEventCalendar.Client>
+
+@{
+    ViewBag.Title = "Klijenti";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>GetClientsList</h2>
+
+<p>
+    @Html.ActionLink("Dodaj klijenta", "Create", "Home")
+</p>
+
+
+
+
+<table class="table">
+    <tr>
+        <th>
+
+            @Html.DisplayNameFor(model => model.FirstLastName)
+        </th>
+        <th>
+
+            @Html.DisplayNameFor(model => model.number)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstLastName)
+            </td>
+            <td>
+                <p style="display:inline">0</p>
+                @Html.DisplayFor(modelItem => item.number)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ClientsID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ClientsID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ClientsID })
+            </td>
+        </tr>
+    }
+
+</table>
